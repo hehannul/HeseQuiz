@@ -18,7 +18,7 @@ namespace HeseQuiz.Test
         }
 
         [Fact]
-        public void Given_Valiad_Ansqers_WhenSubmitAnswers_Then_Except_Ok()
+        public void Given_Valiad_Ansqers_When_SubmitAnswers_Then_Except_Ok()
         {
             // Given
             var quizId = _quiz.StartQuiz();
@@ -45,7 +45,7 @@ namespace HeseQuiz.Test
         }
 
         [Fact]
-        public void Given_Invaliad_TextAnsqer_WhenSubmitAnswers_Then_Except_Fail()
+        public void Given_Invaliad_TextAnsqer_When_SubmitAnswers_Then_Except_Fail()
         {
             // Given
             var quizId = _quiz.StartQuiz();
@@ -54,7 +54,8 @@ namespace HeseQuiz.Test
                 new Answer()
                 {
                     Id = 1,
-                    Text = "asdflksjflsjföasdöfjasödklfjsdwfwefwfwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwfwefwefwefwefwefwefwefwefwefwefwefwefwelkfjaslkfjasldkfjaslkdfjsaldfjalkfjiowejjsakldjfaslkdfjsldfjsldfjsldfjsldfjaslfjsldfjasldfjslkdfjasldjfaslkdfjieojfsldkfjsldkfjasldfkjeiejklsdjfiewj",
+                    Text =
+                        "asdflksjflsjföasdöfjasödklfjsdwfwefwfwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwfwefwefwefwefwefwefwefwefwefwefwefwefwelkfjaslkfjasldkfjaslkdfjsaldfjalkfjiowejjsakldjfaslkdfjsldfjsldfjsldfjsldfjaslfjsldfjasldfjslkdfjasldjfaslkdfjieojfsldkfjsldkfjasldfkjeiejklsdjfiewj",
                 },
                 new Answer()
                 {
@@ -72,7 +73,7 @@ namespace HeseQuiz.Test
         }
 
         [Fact]
-        public void Given_Invaliad_ValueAnsqer_WhenSubmitAnswers_Then_Except_Fail()
+        public void Given_Invaliad_ValueAnsqer_When_SubmitAnswers_Then_Except_Fail()
         {
             // Given
             var quizId = _quiz.StartQuiz();
@@ -97,5 +98,33 @@ namespace HeseQuiz.Test
             Assert.False(status);
 
         }
+
+        [Fact]
+        public void Given_MultiChoices_Answers_When_CalculatePoints_Then_Except_Results()
+        {
+            // Given
+            var answers = new List<Answer>()
+            {
+                new Answer()
+                {
+                    Id = 1,
+                    Text = "Hese",
+                    Points = 5
+                },
+                new Answer()
+                {
+                    Id = 2,
+                    Value = 100,
+                    Points = 5
+                }
+            };
+
+            // When
+            var result = _quiz.CalucatePoints(answers);
+
+            // Then
+            Assert.Equal(10, result);
+        }
+        
     }
 }

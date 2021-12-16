@@ -9,27 +9,22 @@ namespace HeseQuiz
 {
     public class Quiz : IQuiz
     {
-        public IList<Question> GetQuestions(Guid quizId, int? area)
+        private IList<Question> _questions;
+
+        public Quiz()
         {
-            return new List<Question>()
-            {
-                new Question()
-                {
-                    Id = 1,
-                    Type = QuestionType.Number,
-                    Text = "Age"
-                },
-                new Question()
-                {
-                    Id = 2,
-                    Type = QuestionType.Text,
-                    Text = "Name"
-                }
-            };
+            _questions = new List<Question>();
+        }
+
+        public IList<Question> AddQuestion(Question question)
+        {
+            _questions.Add(question);
+            return _questions;
         }
 
         public Guid StartQuiz()
         {
+            _questions.Clear();
             return Guid.NewGuid();
         }
 
@@ -50,6 +45,20 @@ namespace HeseQuiz
             }
 
             return true;
+        }
+
+        public double CalucatePoints(IList<Answer> answerss)
+        {
+            var points = 0;
+            foreach (var answers in answerss)
+            {
+                if (answers.Points.HasValue)
+                {
+                    points += answers.Points.Value;
+                }
+            }
+
+            return points;
         }
     }
 }

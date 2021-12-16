@@ -8,8 +8,10 @@ namespace HeseQuiz
     {
         Guid StartQuiz();
         
-        IList<Question> GetQuestions(Guid quizId, int? area);
+        IList<Question> AddQuestion(Question question);
 
         bool SubmitQuiz(Guid quizId, DateTime? answerDate, IList<Answer> answerss);
+
+        double CalucatePoints(IList<Answer> answerss);
     }
 }
